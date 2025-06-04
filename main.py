@@ -13,7 +13,7 @@ def search_google(query):
         page.wait_for_selector("h3", timeout=5000)
         results = page.query_selector_all("h3")
         output = []
-        for i, r in enumerate(results[:3]):  # just first 3 results
+        for r in results[:3]:  # top 3 results
             output.append(r.inner_text())
         browser.close()
         return output
@@ -28,4 +28,7 @@ def browser_tool():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-app.run(port=5003)
+@app.route("/", methods=["GET"])
+def home():
+    return "Browser Tool is Running"
+
